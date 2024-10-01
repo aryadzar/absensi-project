@@ -16,11 +16,24 @@
 
       <!-- Greeting text -->
       <div class="ml-6">
-        <h2 class="text-xl font-bold">Selamat Pagi, Ahmad Mauluddin</h2>
+        @php
+        date_default_timezone_set('Asia/Jakarta');
+          $hour = date('H'); // Mendapatkan jam dalam format 24 jam
+          if ($hour >= 5 && $hour < 11) {
+              $greeting = "Selamat Pagi";
+          } elseif ($hour >= 11 && $hour < 15) {
+              $greeting = "Selamat Siang";
+          } elseif ($hour >= 15 && $hour < 18) {
+              $greeting = "Selamat Sore";
+          } else {
+              $greeting = "Selamat Malam";
+          }
+        @endphp
+        <h2 class="text-xl font-bold">{{ $greeting }}, Ahmad Mauluddin</h2>
         <p class="text-sm">Selamat datang di sistem absensi pegawai :)</p>
       </div>
     </div>
-
+    
     <!-- Right section (Notification and profile) -->
     <div class="flex items-center space-x-4">
       <!-- Notification Icon -->
