@@ -7,17 +7,20 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('/assets/logo_unila/unila.png') }}" type="image/x-icon">
     <script src="https://kit.fontawesome.com/d931a8b882.js" crossorigin="anonymous"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     @vite('resources/css/app.css')
 </head>
 <body>
+
     <header class="bg-blue-500 text-white py-4 px-6 flex items-center justify-between overflow-x-auto">
         <!-- Left section (Logo and greeting) -->
         <div class="flex items-center space-x-5">
-          <!-- Logo -->
-          <a href="#">
-              <div class="flex items-center ">
-                <img src="{{ asset('/assets/logo_absensi/image.png') }}" alt="AttenDicus Logo" class=" w-[200px]">
-              </div>
+            <!-- Logo -->
+            <a href="#">
+                <div class="flex items-center ">
+                    <img src="{{ asset('/assets/logo_absensi/image.png') }}" alt="AttenDicus Logo" class=" w-[200px]">
+                </div>
             </a>
 
           <!-- Greeting text -->
@@ -52,7 +55,8 @@
             <i class="fas fa-chevron-down"></i>
           </div>
         </div>
-      </header>
+    </header>
+
 
       <div class="flex h-screen space-x-4">
         @include('dashboard.dashboard-route.index')
