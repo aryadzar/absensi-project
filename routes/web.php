@@ -2,6 +2,7 @@
 
 use SSO\SSO;
 use App\Models\User;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -27,11 +28,21 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+
 Route::get('/login/sso', function () {
     if(SSO::authenticate()) //mengecek apakah user telah login atau belum
     {
+
         if(SSO::check()) {
-            return redirect()->route("dashboard");
+            $check = User::where('id_sso', SSO::getUser()->nip)->first(); //mengecek apakah pengguna SSO memiliki username yang sama dengan database aplikasi
+            if(!is_null($check)) {
+                Auth::loginUsingId($check->id); //mengotentikasi pengguna aplikasi
+                return redirect()->route('dashboard');
+            } else {
+                SSO::logout("/");
+                return redirect()->route('login'); //mengarahkan ke halaman login jika pengguna gagal diotentikasi oleh aplikasi
+            }
+
         }
     } else {
         return redirect()->route('auth.logout'); //me-*redirect* user jika otentikasi SSO gagal, diarahkan untuk mengakhiri sesi login (jika ada)
@@ -40,17 +51,34 @@ Route::get('/login/sso', function () {
 
 
 Route::get('/dashboard', function () {
-
-    return view('dashboard.index');
+    $breadcrumbs = Breadcrumbs::generate('Home');
+    return view('dashboard_pegawai.index', compact('breadcrumbs'));
 })->name('dashboard');
 
-Route::get('dashboard/presensi', function () {
-    return view('dashboard.presensi.index');
-})->name("presensi");
+
+
+
+Route::get('dashboard/presensi/scan_barcode', function () {
+    return view('dashboard_pegawai.scan_barcode.index');
+})->name("presensi.barcode");
+
+Route::get('dashboard/presensi/set_izin', function () {
+    $breadcrumbs = Breadcrumbs::generate('Surat Tugas');
+    return view('dashboard_pegawai.surat_tugas.index', compact("breadcrumbs"));
+})->name("presensi.surat_tugas");
+
+Route::get('dashboard/presensi/set_cuti', function () {
+    return view('dashboard_pegawai.cuti.index');
+})->name("presensi.set_cuti");
 
 Route::get('dashboard/history', function () {
-    return view('dashboard.riwayat.index');
+    return view('dashboard_pegawai.riwayat.index');
 })->name("riwayat");
+
+
+
+
+
 
 Route::get('/logout', function () {
     if(SSO::check()) { //mengecek otentikasi pada aplikasi
@@ -62,3 +90,7 @@ Route::get('/logout', function () {
         return redirect('login'); //menampilkan halaman login
     }
 })->name("logout");
+
+Route::get("/testing", function(){
+    return view('dashboard_pegawai.testing');
+})->name("testing");
