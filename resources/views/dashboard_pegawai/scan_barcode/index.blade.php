@@ -49,9 +49,6 @@
             alert(`Code matched = ${decodedText}`, decodedResult);
         }
 
-<<<<<<< HEAD
-</div>
-=======
         let config = {
             fps: 10,
             qrbox: {
@@ -62,7 +59,6 @@
             // Only support camera scan type.
             supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
         };
->>>>>>> d38651fb3930fcdd0fce96442260c0e143e0c409
 
         let html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", config, /* verbose= */ false);
