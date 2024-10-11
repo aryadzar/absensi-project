@@ -31,4 +31,9 @@ Breadcrumbs::for('Scan Barcode', function (BreadcrumbTrail $trail){
     $trail->push("Scan Barcode", route('presensi.barcode'));
 });
 
+Breadcrumbs::for('Log Book', function (BreadcrumbTrail $trail){
+    $trail->parent("Presensi");
+    $trail->push("Log Book", route('presensi.log_book'));
+});
+
 

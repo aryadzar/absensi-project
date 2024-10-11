@@ -36,10 +36,6 @@
     <!-- Message Text for Desktop Only -->
     <h3 class="text-center text-lg mb-8 hidden md:block">Presensi Scan Barcode hanya dapat dilakukan dengan menggunakan Website pada Smartphone Anda</h3>
 
-    <!-- OK Button for Desktop Only -->
-    <button class="bg-yellow-500 text-white font-semibold px-6 py-2 rounded-lg hover:bg-yellow-600 transition hidden md:block">
-        OK
-    </button>
 </div>
 
 <script>
